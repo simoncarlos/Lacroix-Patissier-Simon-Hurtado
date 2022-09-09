@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import logo from "../../assets/logos/logo-blanco.png";
+import CartWidget from "../CartWidget/CartWidget";
 
-function NavBar() {
+function NavBar(props) {
     return (
-        <div className="navbar bg-base-100 py-6">
+        <div className="navbar bg-base-100 p-6">
             <div className="navbar-start">
                 <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -14,7 +16,7 @@ function NavBar() {
                     <li><a>About</a></li>
                 </ul>
                 </div>
-                <img src={logo} className="w-24 ml-4" alt="Logo de Lacroix Patissier"/>
+                <img src={logo} className="w-24" alt="Logo de Lacroix Patissier"/>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
@@ -24,9 +26,9 @@ function NavBar() {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Empezar</a>
+                <CartWidget/>
             </div>
-            </div>
+        </div>
     );
 }
 
