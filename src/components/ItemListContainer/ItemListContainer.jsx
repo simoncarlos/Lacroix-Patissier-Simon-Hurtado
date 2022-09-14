@@ -1,14 +1,14 @@
 import ItemList from "../ItemList/ItemList";
 import { useState, useEffect } from "react";
 import dataDB from "../../utils/data";
-import fetchAsyncMock from "../../utils/fetchAsyncMock";
+import asyncMock from "../../utils/asyncMock";
 
 const ItemListContainer = ({greeting}) => {
 
     const [data, setData] = useState([]);
 
     useEffect( () => {
-        fetchAsyncMock(2000, dataDB) // datafromDB = async mock
+        asyncMock(2000, dataDB) 
             .then(result => setData(result))
             .catch(err => console.log(err) )
     }, [] );
@@ -17,7 +17,6 @@ const ItemListContainer = ({greeting}) => {
         <section className="p-5">
             <h1>{greeting}</h1>
             <ItemList datos={data} />
-
         </section>
     );
 }

@@ -1,11 +1,14 @@
-import img from "../../assets/products/machiato.png"
-import latte from "../../assets/products/latte.png"
+import "./Item.css";
 
-const Item = ({ title, description, price, pictureUrl}) => {
+const Item = ({ title, price, image, rating}) => {
     return(
         <div className="h-72 relative rounded-3xl bg-neutral-focus flex flex-col justify-between p-5 mx-4 ">
             <div className="mx-auto w-36 h-36 rounded-3xl overflow-hidden">
-                <img src={latte} className="w-auto h-auto mx-auto" alt={`Foto de ${title}`} />
+                <img src={image} className="w-auto h-auto mx-auto" alt={`Foto de ${title}`} />
+                <span className="itemRate absolute top-5 right-5 px-2 py-1 rating rating-xs flex items-center">
+                    <input type="radio" name="rating-5" className="mask mask-star-2 mr-2 bg-orange-400"/>
+                    <span className="font-medium text-sm">{rating}</span>
+                </span>
             </div>
             <article className="">
                 <h3 className="text-sm md:text-base font-small text-primary">{title}</h3>
@@ -18,4 +21,3 @@ const Item = ({ title, description, price, pictureUrl}) => {
     );
 };
 export default Item;
-//`../../assets/products/${img}`

@@ -1,25 +1,22 @@
 
 import {useEffect, useState } from "react";
 import dataDB from "../../utils/data";
-import fetchAsyncMock from "../../utils/fetchAsyncMock";
+import asyncMock from "../../utils/asyncMock";
 import ItemDetail from "../ItemDetail/ItemDetail";
-import ItemCount from "../ItemCount/ItemCount";
 
 const ItemDetailContainer = () => {
 
-    const onAdd = (count) => { alert("Se han añadido: " + count + " productos al carrito") };
     const [item, setItem] = useState({});
 
     useEffect( () => {
-        fetchAsyncMock(2000, dataDB[1]) // datafromDB = async mock
+        asyncMock(2000, dataDB[3]) 
             .then(result => setItem(result))
             .catch(err => console.log(err) )
     }, [] );
 
     return (
-        <section className="p-5">
+        <section className="m-5 p-7 sm:p-15">
             <ItemDetail datos={item} />
-            <ItemCount stock={0} initial={1} onAdd={onAdd} />
         </section>
     );
 }

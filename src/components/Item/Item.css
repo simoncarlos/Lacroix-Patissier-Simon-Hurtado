@@ -1,0 +1,8 @@
+.itemRate{
+    background: rgba(0, 0, 0, 0.59);
+    border-radius: 12px 14px 0px 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.9px);
+    -webkit-backdrop-filter: blur(9.9px);
+    border: 1px solid rgba(0, 0, 0, 0.01);
+}

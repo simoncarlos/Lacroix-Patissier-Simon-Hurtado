@@ -1,6 +1,6 @@
 let is_ok = true
 
-let fetchAsyncMock = (time, data) =>{
+let asyncMock = (time, data) =>{
     return new Promise( (resolve, reject) => {
         setTimeout(()=>{
             if(is_ok){
@@ -13,4 +13,4 @@ let fetchAsyncMock = (time, data) =>{
     })
 }
 
-export default fetchAsyncMock;
+export default asyncMock;

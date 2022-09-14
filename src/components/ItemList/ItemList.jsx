@@ -7,7 +7,7 @@ const ItemList = ({ datos }) => {
         return(
             <div className="itemList pt-24 pb-8 flex flex-nowrap overflow-x-scroll">
                 {   
-                    datos.map( item =>  <Item  key = {item.id} id = {item.id} title= {item.title}  description= {item.description}  price= {item.price} image= {item.pictureUrl}/> ) 
+                    datos.map( item =>  <Item  key = {item.id} id = {item.id} title= {item.title} price= {item.price} image= {item.pictureUrl} rating={item.raiting} /> ) 
                 }
             </div>
         )
