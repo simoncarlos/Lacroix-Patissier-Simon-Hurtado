@@ -6,7 +6,7 @@ import "./ItemDetail.css";
 
 const ItemDetail = ({datos})=>{
     
-    const {title, description, ingredients, price, pictureUrl, roasted, milk, raiting} = datos;
+    const {title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
     const onAdd = (count) => { alert("Se han añadido: " + count + " productos al carrito") };
     return (
         <>
@@ -16,7 +16,10 @@ const ItemDetail = ({datos})=>{
                         <img src={pictureUrl} className="itemDetail relative rounded-3xl  w-full sm:w-72 h-5/12 z-10" alt="" />
                         <article className="glasss absolute bottom-0 rounded-3xl w-full sm:w-72 h-32 z-20 p-5 flex justify-between">
                             <div className="h-100 flex flex-col justify-between items-start">
-                                <h1 className="text-primary text-lg font-medium">{title}</h1>
+                                <article>
+                                    <h1 className="text-primary text-lg font-medium">{title}</h1>
+                                    <h3 className="text-xs md:text-sm font-light text-primary-focus">{subtitle}</h3>
+                                </article>
                                 <p className="rating rating-xs flex items-center">
                                     <input type="radio" name="rating-5" className="mask mask-star-2 mr-2 bg-orange-400"/>
                                     <span className="font-medium text-sm">{raiting}</span>
@@ -56,7 +59,7 @@ const ItemDetail = ({datos})=>{
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center">
-                        <ItemCount className="block " stock={5} initial={1} onAdd={onAdd} />
+                        <ItemCount className="block" stock={stock} initial={1} onAdd={onAdd} />
                         <div className="stat w-auto px-10">
                             <div className="stat-title">Precio:</div>
                             <div className="stat-value">

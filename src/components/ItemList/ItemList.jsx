@@ -1,22 +1,21 @@
 import Item from "../Item/Item";
-import "./ItemList.css";
 import Loader from "../Loader/Loader";
 
 const ItemList = ({ datos }) => {
     if( datos.length > 0 ){
         return(
-            <div className="itemList pt-24 pb-8 flex flex-nowrap overflow-x-scroll">
+            <div className="itemList flex flex-wrap justify-evenly">
                 {   
-                    datos.map( item =>  <Item  key = {item.id} id = {item.id} title= {item.title} price= {item.price} image= {item.pictureUrl} rating={item.raiting} /> ) 
+                    datos.map( item =>  <Item  key = {item.idProduct} id = {item.idProduct} title= {item.title} subtitle={item.subtitle} price= {item.price} image= {item.pictureUrl} rating={item.raiting} /> ) 
                 }
             </div>
         )
     }
     else{
         return(
-            <div className="itemList pt-24 pb-8 flex flex-nowrap overflow-x-scroll">
+            <section className="h-96 flex items-center justify-center">
                 <Loader/>
-            </div>
+            </section>
         )
     }
 };

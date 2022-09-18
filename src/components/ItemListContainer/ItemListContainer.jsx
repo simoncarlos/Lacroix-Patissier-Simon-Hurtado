@@ -2,20 +2,28 @@ import ItemList from "../ItemList/ItemList";
 import { useState, useEffect } from "react";
 import dataDB from "../../utils/data";
 import asyncMock from "../../utils/asyncMock";
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = ({greeting}) => {
+const ItemListContainer = () => {
 
     const [data, setData] = useState([]);
+    const { id } = useParams();
 
     useEffect( () => {
-        asyncMock(2000, dataDB) 
+        if( id ){
+            asyncMock(2000, dataDB.filter( product => product.category === id  )) 
             .then(result => setData(result))
             .catch(err => console.log(err) )
-    }, [] );
+        } 
+        else{
+            asyncMock(2000, dataDB) 
+                .then(result => setData(result))
+                .catch(err => console.log(err) ) 
+        }
+    }, [id] );
 
     return (
-        <section className="p-5">
-            <h1>{greeting}</h1>
+        <section className="py-5 px-5 lg:px-40">
             <ItemList datos={data} />
         </section>
     );
