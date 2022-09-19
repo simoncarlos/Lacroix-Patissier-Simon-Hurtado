@@ -18,6 +18,7 @@ const ItemDetailContainer = () => {
                 .catch(err => console.log(err) )
         }
     }, [id]);
+    
     if( Object.keys(item).length !== 0 ){
         return (
             <section className="m-5 p-7 sm:p-15">

@@ -3,11 +3,26 @@ import icon from "../../assets/iconos/coffe.png"
 import milkY from "../../assets/iconos/milk.png"
 import milkN from "../../assets/iconos/no-milk.png"
 import "./ItemDetail.css";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../CartContext/CartContext";
 
 const ItemDetail = ({datos})=>{
     
-    const {title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
-    const onAdd = (count) => { alert("Se han añadido: " + count + " productos al carrito") };
+    const { cartList, addItem, isInCart, updateItem } = useContext(CartContext);
+
+    let { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
+
+    const [itemCount, setItemCount] = useState(0);
+
+    isInCart(idProduct) && (stock = stock - cartList.find( itemCart => itemCart.idProduct === idProduct ).cart  )
+    
+    const onAdd = (count) => { 
+        setItemCount(count);
+        isInCart(idProduct) ? updateItem(idProduct, count) : addItem(datos, count);
+    };
+
     return (
         <>
             <div className="sm:flex w-11/12 mx-auto md:mx-0 flex flex-col md:flex-row justify-center">
@@ -59,7 +74,11 @@ const ItemDetail = ({datos})=>{
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center">
-                        <ItemCount className="block" stock={stock} initial={1} onAdd={onAdd} />
+                        {
+                            itemCount === 0 
+                            ? <ItemCount className="block" stock={stock} initial={1} onAdd={onAdd} />
+                            : <Link to="/cart"> <button className="btn glass"> Checkout </button> </Link>
+                        }
                         <div className="stat w-auto px-10">
                             <div className="stat-title">Precio:</div>
                             <div className="stat-value">

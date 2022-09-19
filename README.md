@@ -1,4 +1,4 @@
-# Stelarze Simon Hurtado
+# Lacroix Patissier Simon Hurtado
 
 ![N|Solid](https://i.ibb.co/JtvQzfT/Creamos-soluciones-inteligentes-2-removebg-preview.png)
 
@@ -11,6 +11,9 @@ Es una Simple Page Aplication, con hosting de Firebase y responsive web design.
 ## Hoja de ruta
 
 Resumen de los commits realizados en el repositorio:
+
+`Eventos`
+>Committed on 19 sep 2022
 
 `Documentacion readme.md`
 >Committed on 18 sep 2022
