@@ -12,11 +12,13 @@ const ItemDetail = ({datos})=>{
     
     const { cartList, addItem, isInCart, updateItem } = useContext(CartContext);
 
-    let { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
+    const { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
 
     const [itemCount, setItemCount] = useState(0);
 
-    isInCart(idProduct) && (stock = stock - cartList.find( itemCart => itemCart.idProduct === idProduct ).cart  )
+    let newStock = stock;
+
+    isInCart(idProduct) && (newStock = stock - cartList.find( itemCart => itemCart.idProduct === idProduct ).cart  )
     
     const onAdd = (count) => { 
         setItemCount(count);
@@ -76,7 +78,7 @@ const ItemDetail = ({datos})=>{
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center">
                         {
                             itemCount === 0 
-                            ? <ItemCount className="block" stock={stock} initial={1} onAdd={onAdd} />
+                            ? <ItemCount className="block" stock={newStock} initial={1} onAdd={onAdd} />
                             : <Link to="/cart"> <button className="btn glass"> Checkout </button> </Link>
                         }
                         <div className="stat w-auto px-10">

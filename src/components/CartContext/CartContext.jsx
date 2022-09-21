@@ -12,9 +12,12 @@ const CartContextProvider = ({ children }) => {
         return isIn
     }
 
+    const findIndex = (id) =>{
+        return cartList.findIndex( itemCart => itemCart.idProduct === id);
+    }
+
     const updateItem = ( id, quantity ) => {
-        const position = cartList.findIndex( itemCart => itemCart.idProduct === id); 
-        cartList[position].cart += quantity;
+        cartList[ findIndex(id) ].cart += quantity;
     }
 
     const addItem = (item, quantity) => {
@@ -32,7 +35,7 @@ const CartContextProvider = ({ children }) => {
     }
 
     return(
-        <CartContext.Provider value = { {cartList, isInCart, updateItem, addItem, clear, removeItem} } >
+        <CartContext.Provider value = { {cartList, isInCart, updateItem, addItem, clear, removeItem, findIndex} } >
             {children}
         </CartContext.Provider>
     )
