@@ -6,6 +6,27 @@ const CartContextProvider = ({ children }) => {
 
     const [cartList, setCartList] = useState( [] );
     
+    const existsCart = () => {
+        return ( cartList.length > 0 )
+    }
+
+    const totalPrice = () => {
+        return cartList.reduce( (acc, numero) => { return acc + (numero.cart * numero.price) }, 0)
+    }
+
+    const quantityProducts = () => {
+        return cartList.reduce( (acc, numero) => { return acc + numero.cart }, 0)
+    }
+
+    const cartProduct = (id) => {
+        return cartList.find( itemCart => itemCart.idProduct === id ).cart
+    }
+
+    const setQuantity = ( id, quantity ) => {
+        cartList[ findIndex(id) ].cart = quantity;
+        setCartList([...cartList]);
+    }
+
     const isInCart = ( id ) => {
         let isIn = false
         cartList.forEach( cartItem => (cartItem.idProduct === id) && (isIn = true) );
@@ -18,11 +39,17 @@ const CartContextProvider = ({ children }) => {
 
     const updateItem = ( id, quantity ) => {
         cartList[ findIndex(id) ].cart += quantity;
+        setCartList([...cartList]);
     }
 
-    const addItem = (item, quantity) => {
-        item.cart = quantity;
-        setCartList( [...cartList, item] );
+    const addItem = (item, quantity, idProduct) => {
+        if( isInCart(idProduct) ){
+            updateItem(idProduct, quantity)
+        }
+        else{
+            item.cart = quantity;
+            setCartList( [...cartList, item] );
+        }
     }
 
     const clear = () =>{
@@ -35,7 +62,7 @@ const CartContextProvider = ({ children }) => {
     }
 
     return(
-        <CartContext.Provider value = { {cartList, isInCart, updateItem, addItem, clear, removeItem, findIndex} } >
+        <CartContext.Provider value = { {cartList, existsCart, totalPrice, quantityProducts, isInCart, updateItem, addItem, clear, removeItem, findIndex, cartProduct, setQuantity} } >
             {children}
         </CartContext.Provider>
     )

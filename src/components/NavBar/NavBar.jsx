@@ -1,8 +1,13 @@
 import logo from "../../assets/logos/logo-blanco.png";
 import CartWidget from "../CartWidget/CartWidget";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../CartContext/CartContext";
 
-function NavBar(props) {
+function NavBar() {
+
+    const { quantityProducts, existsCart } = useContext(CartContext);
+
     return (
         <div className="navbar bg-base-100 p-6">
             <div className="navbar-start">
@@ -26,7 +31,7 @@ function NavBar(props) {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/cart"> <CartWidget/> </Link>
+                <Link to="/cart"> <CartWidget quantity={quantityProducts()} exists={existsCart()} /> </Link>
             </div>
         </div>
     );

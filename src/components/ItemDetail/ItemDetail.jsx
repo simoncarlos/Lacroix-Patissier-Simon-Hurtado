@@ -10,19 +10,17 @@ import { CartContext } from "../CartContext/CartContext";
 
 const ItemDetail = ({datos})=>{
     
-    const { cartList, addItem, isInCart, updateItem } = useContext(CartContext);
+    const { addItem, isInCart, cartProduct } = useContext(CartContext);
 
     const { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
 
     const [itemCount, setItemCount] = useState(0);
 
-    let newStock = stock;
-
-    isInCart(idProduct) && (newStock = stock - cartList.find( itemCart => itemCart.idProduct === idProduct ).cart  )
+    const newStock = isInCart(idProduct) ? (stock - cartProduct(idProduct)) : stock
     
     const onAdd = (count) => { 
         setItemCount(count);
-        isInCart(idProduct) ? updateItem(idProduct, count) : addItem(datos, count);
+        addItem(datos, count, idProduct);
     };
 
     return (

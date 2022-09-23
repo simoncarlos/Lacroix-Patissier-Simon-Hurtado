@@ -11,7 +11,7 @@ function App() {
   return (
     <CartContextProvider>
       <BrowserRouter>
-        <NavBar name="Juancho" apellido="Feliz" />
+        <NavBar />
         <Routes>
           <Route path="/cart" element= { <Cart /> } />
           <Route path="/" element= { <ItemListContainer /> } />
