@@ -1,9 +1,9 @@
 import ItemList from "../ItemList/ItemList";
 import { useState, useEffect } from "react";
-import dataDB from "../../utils/data";
-import asyncMock from "../../utils/asyncMock";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { collection, getDocs, where, query } from "firebase/firestore";
+import { db } from "../../utils/firebaseConfig"
 
 const ItemListContainer = () => {
 
@@ -11,25 +11,31 @@ const ItemListContainer = () => {
     const { id } = useParams();
     const [loader, setLoader] = useState(true);
 
+    async function fetchData(id){
+        let querySnapshot
+
+        if(id){
+            const filter = query( collection(db, "products"), where( 'category' , '==' , id ) )
+            querySnapshot = await getDocs( filter )
+        }
+        else{
+            querySnapshot = await getDocs(collection(db, "products"))
+        }
+
+        const dataFromDB = querySnapshot.docs.map( (product) => (
+            {
+                idProduct: product.id,
+                ...product.data()
+            }
+        ))
+        
+        setData( dataFromDB )
+        setLoader(false)
+    }
 
     useEffect( () => {
         setLoader(true);
-        if( id ){
-            asyncMock(2000, dataDB.filter( product => product.category === id  )) 
-            .then(result => {
-                setData(result);
-                setLoader(false)
-            })
-            .catch(err => console.log(err) )
-        } 
-        else{
-            asyncMock(2000, dataDB) 
-                .then(result => {
-                    setData(result)
-                    setLoader(false)
-                })
-                .catch(err => console.log(err) ) 
-        }
+        fetchData(id);
     }, [id] );
 
     if(loader){

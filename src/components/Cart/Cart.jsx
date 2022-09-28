@@ -17,9 +17,9 @@ const Cart = () => {
             {
                 cartList.length !== 0
                 ? <button className="btn my-14 mx-auto" onClick={clear}>Eliminar todos los item</button>
-                : <div>
-                    <Link to="/"><button> Volver al inicio </button></Link>
-                    <h2 className="text-xl text-center my-14 mx-auto">Tu carrito está vacio</h2>
+                : <div className="flex flex-col align-middle">
+                    <h2 className="text-xl text-center my-14 mx-auto">Tu carrito está vacio..</h2>
+                    <Link to="/" className="mx-auto"><button className="btn"> Volver al inicio </button></Link>
                 </div>
             }
             <ul className="my-5 flex flex-wrap justify-center">

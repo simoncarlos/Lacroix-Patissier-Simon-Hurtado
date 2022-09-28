@@ -1,22 +1,33 @@
 
 import {useEffect, useState } from "react";
-import dataDB from "../../utils/data";
-import asyncMock from "../../utils/asyncMock";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import Loader from "../Loader/Loader";
 import { useParams } from "react-router-dom";
+import { db } from "../../utils/firebaseConfig"
+import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
 
     const [item, setItem] = useState({});
     const { id } = useParams();
     
-    useEffect( () => {
-        if( id ){
-            asyncMock(2000, dataDB.find( product => product.idProduct === parseInt(id) ) ) 
-                .then(result => setItem(result))
-                .catch(err => console.log(err) )
+    async function fetchData(id){
+
+        const docRef = doc(db, "products", id );
+        const docSnap = await getDoc(docRef);
+        
+        if( docSnap.exists() ){
+            setItem( { idProduct: id, ...docSnap.data() } )
         }
+        else{
+            alert("No existe el id del producto ingresado");
+            window.history.back();
+        }
+
+    }
+
+    useEffect( () => {
+        fetchData(id);
     }, [id]);
     
     if( Object.keys(item).length !== 0 ){
