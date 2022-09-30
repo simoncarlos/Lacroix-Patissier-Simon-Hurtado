@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import CartCount from "../CartCount/CartCount";
+import { increment, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, collection, updateDoc } from "firebase/firestore";
+import { db } from "../../utils/firebaseConfig";
 
 const Cart = () => {
     
@@ -11,6 +14,43 @@ const Cart = () => {
     const MySwal = withReactContent(Swal);
     const price = totalPrice(); 
     const quantity = quantityProducts();
+
+    const createOrder = async () => {
+        const itemsForDB = cartList.map( item => ({
+            id: item.idProduct,
+            title: item.title,
+            price: item.price,
+            quantity: item.cart
+        }) )
+        let order = {
+            buyer:{
+                name: "Diego Simon",
+                email: "diegoestushoi@gmail.com",
+                phone: "1173688676"
+            },
+            items: itemsForDB,
+            date: serverTimestamp(),
+            total: (price * 1.21)
+        }
+        const newOrderRef = doc( collection(db, "orders") )
+        await setDoc( newOrderRef, order)
+
+        cartList.forEach( async(product) => {
+
+            const itemRef = doc(db, "products", product.idProduct);
+            await updateDoc( itemRef , {
+                stock: increment( -parseInt(product.cart) )
+            });
+
+        });
+        clear();
+
+        Swal.fire(
+            'Tu orden fue creada!',
+            "Este es tu ID de orden: "+ newOrderRef.id
+        )
+    }
+
     return(
         <section className="mt-10 px-6 flex flex-col align-middle">
             <h1 className="text-center text-4xl font-medium">Tu carrito</h1>
@@ -90,7 +130,7 @@ const Cart = () => {
                         <p>Precio final: </p>
                         <p>$ { price * 1.21 }</p>
                     </div>
-                    <button className="btn btn-active w-full">Finalizar Compra</button>
+                    <button onClick={createOrder} className="btn btn-active w-full">Finalizar Compra</button>
                 </article>
             }
         </section>
