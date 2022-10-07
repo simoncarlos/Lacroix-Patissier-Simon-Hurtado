@@ -1,15 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import CartCount from "../CartCount/CartCount";
-import { increment, serverTimestamp } from "firebase/firestore";
-import { doc, setDoc, collection, updateDoc } from "firebase/firestore";
+import { increment, serverTimestamp, doc, setDoc, collection, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
 
 const Cart = () => {
     
+    const [cartOrder, setCartOrder] = useState(false);
+    const [idOrder, setIdOrder] = useState({});
+
     const { cartList, clear, removeItem, findIndex, quantityProducts, totalPrice } = useContext(CartContext);
     const MySwal = withReactContent(Swal);
     const price = totalPrice(); 
@@ -43,12 +45,8 @@ const Cart = () => {
             });
 
         });
-        clear();
-
-        Swal.fire(
-            'Tu orden fue creada!',
-            "Este es tu ID de orden: "+ newOrderRef.id
-        )
+        setIdOrder({...order, id: newOrderRef.id });
+        setCartOrder(true);
     }
 
     return(
@@ -66,7 +64,7 @@ const Cart = () => {
                 {
                     cartList.map( product => 
                         <li key={product.idProduct} className="m-5">
-                            <div className="relative mx-auto flex justify-start w-96 p-4 rounded-2xl bg-neutral-focus">
+                            <div className="relative mx-auto flex justify-start w-80 p-4 rounded-2xl bg-neutral-focus">
                                 <div className="w-24 h-32 rounded-2xl overflow-hidden">
                                     <img src={product.pictureUrl} className="w-24" alt="" />
                                 </div>
@@ -77,9 +75,6 @@ const Cart = () => {
                                     </article>
                                     <div className="flex justify-between">
                                         <p className="text-base-content font-medium">$ {product.price  * cartList[ findIndex(product.idProduct) ].cart}</p>
-                                        <p className="text-base-content font-medium">Cantidad: { cartList[ findIndex(product.idProduct) ].cart }</p>
-                                    </div>
-                                    <div className="w-full">
                                         <CartCount id={product.idProduct} stock={product.stock}></CartCount>
                                     </div>
                                 </div>
@@ -112,7 +107,7 @@ const Cart = () => {
             </ul>
             {
                 cartList.length !== 0 
-                && <article className="w-96 p-4 mx-auto mb-20">
+                && <article className="w-80 mx-auto mb-20">
                     <h2 className="text-xl text-center my-14 mx-auto">Resumen de compra:</h2>
                     <div className="my-6 flex justify-between align-middle">
                         <p>Cantidad productos:</p>
@@ -130,7 +125,26 @@ const Cart = () => {
                         <p>Precio final: </p>
                         <p>$ { price * 1.21 }</p>
                     </div>
-                    <button onClick={createOrder} className="btn btn-active w-full">Finalizar Compra</button>
+                    
+
+                    <label htmlFor="my-modal-6" className="btn modal-button" onClick={createOrder}>open modal</label>
+                    <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+
+                    <div className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box">
+                            {
+                                cartOrder && <>
+                                    <h3 className="font-bold text-lg">¡Muchas gracias por su compra {idOrder.buyer.name}!</h3>
+                                    <p className="py-4">Su monto total de la compra es: ${idOrder.total}</p>
+                                    <p>Su id de compra es: {idOrder.id}</p>
+                                </>
+                            }
+                            <div className="modal-action">
+                                <label htmlFor="my-modal-6" className="btn" onClick={clear}>Close</label>
+                            </div>
+                        </div>
+                    </div>
+
                 </article>
             }
         </section>

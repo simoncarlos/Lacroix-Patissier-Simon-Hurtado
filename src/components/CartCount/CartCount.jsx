@@ -11,9 +11,9 @@ const CartCount = ({id, stock}) => {
 
     return (
         <div className="flex items-center">
-            <button className="btn btnCount mx-5 btn-circle btn-outline" onClick={ decrement } disabled={ count === 1 } > - </button>
+            <button className="btnCount btn-outline w-7 h-7 rounded-3xl border-base-content border cursor-pointer" onClick={ decrement } disabled={ count === 1 } > - </button>
             <p className="mx-3 text-lg font-medium text-primary">{count}</p>
-            <button className="btn btnCount mx-5 btn-circle btn-outline" onClick={ increment } disabled={ count === stock } > + </button>                
+            <button className="btnCount btn-outline w-7 h-7 rounded-3xl border-base-content border cursor-pointer" onClick={ increment } disabled={ count === stock } > + </button>                
         </div>
     );
 }
