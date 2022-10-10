@@ -12,7 +12,7 @@ const ItemDetail = ({datos})=>{
     
     const { addItem, isInCart, cartProduct } = useContext(CartContext);
 
-    const { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted, milk, raiting, stock} = datos;
+    const { idProduct, title, subtitle, description, ingredients, price, pictureUrl, roasted,  raiting, stock, percentageCoffe, percentageMilk} = datos;
 
     const [itemCount, setItemCount] = useState(0);
 
@@ -43,10 +43,10 @@ const ItemDetail = ({datos})=>{
                             <div className=" flex flex-col justify-between w-24 h-full">
                                 <div className="flex justify-between h-6/12">
                                     <div className="w-5/12 p-3 bg-base-100 text-sm rounded-xl">
-                                        <img src={icon} className="w-full" alt="" />
+                                        <img src={icon} className="w-full" alt="Icono de café" />
                                     </div>
                                     <div className="w-5/12 p-3 bg-base-100 text-sm rounded-xl">
-                                        <img src={ milk ? milkY : milkN } className="w-full" alt="" />
+                                        <img src={ percentageMilk > 0 ? milkY : milkN } className="w-full" alt="" />
                                     </div>
                                 </div>
                                 <div className="h-6/12 roasted">
@@ -65,24 +65,29 @@ const ItemDetail = ({datos})=>{
                         <p className="text-primary-focus font-normal">Ingredientes</p>
                         <p className="text-primary font-normal">{ingredients}</p>
                     </article>
-                    <div className="mb-6">
-                        <p className="text-primary-focus font-normal">Tamaño</p>
-                        <div className="flex justify-between mt-4">
-                            <button className="btn btn-outline w-3/12 h-5 md:h-7 btn-active">S</button>
-                            <button className="btn btn-outline w-3/12 h-5 md:h-7">M</button>
-                            <button className="btn btn-outline w-3/12 h-5 md:h-7">L</button>
+                    <article className="mb-14 md:mb-6">
+                        <p className="text-primary-focus font-normal mb-3">Caracteristicas</p>
+                        <div className="flex items-center md:justify-start justify-around">
+                            <div className="w-24 bg-neutral-focus text-sm rounded-xl p-4 flex items-center justify-around mr-6">
+                                <p className="roasted bg-neutral-focus text-sm rounded-lg">{percentageCoffe}%</p>
+                                <img src={ icon } className="w-5" alt="Logo de café" />
+                            </div>
+                            <div className="w-24 bg-neutral-focus text-sm rounded-xl p-4 flex items-center justify-around">
+                                <p className="roasted bg-neutral-focus text-sm rounded-lg">{percentageMilk}%</p>
+                                <img src={ percentageMilk > 0 ? milkY : milkN } className="w-5" alt="Logo de milk" />
+                            </div>
                         </div>
-                    </div>
+                    </article>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center">
                         {
                             itemCount === 0 
                             ? <ItemCount className="block" stock={newStock} initial={1} onAdd={onAdd} />
                             : <Link to="/cart"> <button className="btn glass"> Checkout </button> </Link>
                         }
-                        <div className="stat w-auto px-10">
-                            <div className="stat-title">Precio:</div>
+                        <div className="stat px-10">
+                            <div className="stat-title text-center md:text-left">Precio:</div>
                             <div className="stat-value">
-                                <p className="text-base-content w-20 text-center">$ <span className="text-primary">{price}</span></p>
+                                <p className="text-base-content text-center md:text-left">$ <span className="text-primary">{price}</span></p>
                             </div>
                         </div>
                     </div>

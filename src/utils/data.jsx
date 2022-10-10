@@ -172,7 +172,7 @@ const dataDB = [
         category: "granos",
         title: "Guatemala",
         subtitle: "250g",
-        description: "Un café muy dulce y balanceado. Como morder una manzana roja en su punto justo. Presenta un buen cuerpo pronunciado y cremos.",
+        description: "Un café muy dulce y balanceado. Como morder una manzana roja en su punto justo. Presenta un buen cuerpo pronunciado y cremoso.",
         ingredients: "Chocolate con leche, avellana, almendra, manzana roja y uva blanca",
         price: "3200",
         pictureUrl: "https://i.ibb.co/gVbLRjj/coffe-4.png",

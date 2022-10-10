@@ -6,6 +6,7 @@ import withReactContent from 'sweetalert2-react-content';
 import CartCount from "../CartCount/CartCount";
 import { increment, serverTimestamp, doc, setDoc, collection, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
+import Loader from "../Loader/Loader";
 
 const Cart = () => {
     
@@ -127,17 +128,21 @@ const Cart = () => {
                     </div>
                     
 
-                    <label htmlFor="my-modal-6" className="btn modal-button" onClick={createOrder}>open modal</label>
+                    <label htmlFor="my-modal-6" className="btn modal-button w-full" onClick={createOrder}>Finalizar Compra</label>
                     <input type="checkbox" id="my-modal-6" className="modal-toggle" />
 
                     <div className="modal modal-bottom sm:modal-middle">
-                        <div className="modal-box">
+                        <div className="modal-box ">
                             {
-                                cartOrder && <>
+                                cartOrder
+                                ? <>
                                     <h3 className="font-bold text-lg">¡Muchas gracias por su compra {idOrder.buyer.name}!</h3>
                                     <p className="py-4">Su monto total de la compra es: ${idOrder.total}</p>
                                     <p>Su id de compra es: {idOrder.id}</p>
                                 </>
+                                : <div className="h-40 w-full flex items-center justify-center">
+                                    <Loader />
+                                </div>
                             }
                             <div className="modal-action">
                                 <label htmlFor="my-modal-6" className="btn" onClick={clear}>Close</label>

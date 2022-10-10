@@ -28,7 +28,6 @@ const ItemListContainer = () => {
                 ...product.data()
             }
         ))
-        
         setData( dataFromDB )
         setLoader(false)
     }

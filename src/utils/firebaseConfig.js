@@ -4,12 +4,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDr7ZpOS6aSh8d5RhrLQm7KyXbmUJ0N6tA",
-    authDomain: "lacroix-patissier.firebaseapp.com",
-    projectId: "lacroix-patissier",
-    storageBucket: "lacroix-patissier.appspot.com",
-    messagingSenderId: "195606909766",
-    appId: "1:195606909766:web:4a491e4a1f970db7098b47"
+    apiKey: "AIzaSyDBnJVkBwFJUETmWfIGdoPg_ORhTluzuyY",
+    authDomain: "lacroix-patissier-60604.firebaseapp.com",
+    projectId: "lacroix-patissier-60604",
+    storageBucket: "lacroix-patissier-60604.appspot.com",
+    messagingSenderId: "1060804777796",
+    appId: "1:1060804777796:web:b93d9d248168efa795e911",
+    measurementId: "G-63W6CYH8Y9"
 };
 
 // Initialize Firebase
