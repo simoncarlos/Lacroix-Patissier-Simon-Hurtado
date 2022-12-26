@@ -1,4 +1,4 @@
-.header{
+header{
     height: 85vh;
     background-image: url("../../assets/background/header-background.jpg");
     background-size: 500%;
@@ -9,43 +9,43 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding: 5%;
+    padding: 10%;
 }
-.header::before{
+header::before{
     position: absolute;
     content: "";
-    background: linear-gradient(0deg, #09090b 0%, #09090bc7 50%, #09090b 100%);
+    background: linear-gradient(0deg, rgb(9, 9, 11) 0%, #09090bc7 50%, #09090b 100%);
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     z-index: 0;
 }
-.header article{
+header article{
     z-index: 10;
     width: 100%;
 }
-.header article h1{
+header article h1{
     margin-bottom: 40px;
 }
-.header article p{
+header article p{
     margin-bottom: 40px;
 }
 @media (min-width: 768px) {
-    .header{
+    header{
         background-size: 250%;
         background-repeat: no-repeat;
     }
-    .header article{
+    header article{
         width: 80%;
     }
 }
 @media (min-width: 1024px) {
-    .header{
+    header{
         background-size: 100%;
         background-repeat: no-repeat;
     }
-    .header article{
+    header article{
         width: 50%;
     }
 }
