@@ -18,7 +18,7 @@ const Footer = () => {
             <div>
                 <div className="grid grid-flow-col gap-4">
                 <a href="https://www.linkedin.com/in/simon-carlos/"> <img src={linkedIn} className="filterBaseContent h-8" alt="Logo de LinkedIn" /> </a> 
-                <a href="https://github.com/diegosimonnn"> <img src={github} className="filterBaseContent h-8" alt="Logo de GitHub" /> </a> 
+                <a href="https://github.com/simoncarlos"> <img src={github} className="filterBaseContent h-8" alt="Logo de GitHub" /> </a> 
                 <a href="mailto:csimonhurtado@gmail.com"> <img src={email} className="filterBaseContent h-8" alt="Logo de Email" /> </a>
                 </div>
             </div>

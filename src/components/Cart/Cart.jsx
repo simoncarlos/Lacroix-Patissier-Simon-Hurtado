@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import CartCount from "../CartCount/CartCount";
 import { increment, serverTimestamp, doc, setDoc, collection, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebaseConfig";
@@ -14,7 +12,6 @@ const Cart = () => {
     const [idOrder, setIdOrder] = useState({});
 
     const { cartList, clear, removeItem, findIndex, quantityProducts, totalPrice } = useContext(CartContext);
-    const MySwal = withReactContent(Swal);
     const price = totalPrice(); 
     const quantity = quantityProducts();
 
@@ -27,9 +24,9 @@ const Cart = () => {
         }) )
         let order = {
             buyer:{
-                name: "Diego Simon",
-                email: "diegoestushoi@gmail.com",
-                phone: "1173688676"
+                name: "Consumidor Final",
+                email: "consumidorfinal@gmail.com",
+                phone: "1173688675"
             },
             items: itemsForDB,
             date: serverTimestamp(),
@@ -79,26 +76,9 @@ const Cart = () => {
                                         <CartCount id={product.idProduct} stock={product.stock}></CartCount>
                                     </div>
                                 </div>
-                                <button className="btn btn-circle absolute top-1 right-1 bg-neutral-focus border-none" onClick = { () => { 
-                                    MySwal.fire({
-                                        title: 'Esta seguro que desea eliminar?',
-                                        text: "Si lo elimina debera volver a agregar al carrito",
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Si, eliminar'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            MySwal.fire(
-                                                'Eliminado',
-                                                'Su producto ha sido eliminado del carrito con exito.',
-                                                'success'
-                                            )
-                                            removeItem(product.idProduct) 
-                                        }
-                                    })
-                                    } } >
+                                <button 
+                                className="btn btn-circle absolute top-1 right-1 bg-neutral-focus border-none" 
+                                onClick = { () => { removeItem(product.idProduct) } } >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </div>
